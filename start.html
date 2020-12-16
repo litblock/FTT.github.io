@@ -45,9 +45,9 @@ var pointElement = document.getElementById("points");
 
 var free = document.getElementById("freebie");
 var clickClickSecret = document.getElementById('clickClickSecret');
-
+if(document.cookie==null){
 clickClickSecret.innerHTML = document.cookie.split("=")[1];
-
+}
 function addPoints(val){
 points += val;
 pointElement.innerHTML = "Points: "+points;
