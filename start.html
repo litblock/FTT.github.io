@@ -42,15 +42,14 @@ width:90px;
 <script>
 var points = 0;
 var pointElement = document.getElementById("points");
-
 var free = document.getElementById("freebie");
 var clickClickSecret = document.getElementById('clickClickSecret');
 
 if(!isNaN(parseInt(document.cookie.split("=")[1]))){
 points = parseInt(document.cookie.split("=")[1]);
-pointElement.innerHTML = "Points: "+points;
 }
 
+pointElement.innerHTML = "Points: "+points;
 
 function addPoints(val){
 points += val;
