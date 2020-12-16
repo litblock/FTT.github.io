@@ -6,18 +6,65 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
     
-    html{
-      font-family:Orbitron;
-    }
-    
-    h1{
-      align:center;
-    }
+*{
+font-family:Orbitron;
+text-align:center;
+}
+
+p,secret{
+font-family:Arial;
+}
+
+#pointwrapper{
+position:fixed;
+left:85%;
+border:10px outset red;
+text-align:center;
+padding:0px 10px 0px 10px;
+width:90px;
+}
+
   </style>
 </head>
 
 <body>
-  <h1>Look around!</h1>
-  
+<div id="pointwrapper">
+<p id="points">Points: 0</p>
+</div>
+
+
+<h1>Welcome to FTT!</h1>
+<br>
+<p>Here's how it works. <br>You try and find easter eggs in the webpage. <br>The harder the easter egg, the more points you get. <br> Use points to buy hints and other things from the shop.</p>
+<button id="freebie">Here, have a freebie.</button>
+<p id="clickClickSecret">And thats about it. Feel free to <secret>click</secret> around and try to find more secrets!</p>
 </body>
+<script>
+var points = 0;
+var pointElement = document.getElementById("points");
+
+var free = document.getElementById("freebie");
+var clickClickSecret = document.getElementById('clickClickSecret');
+
+clickClickSecret.innerHTML = document.cookie;
+
+function addPoints(val){
+points += val;
+pointElement.innerHTML = "Points: "+points;
+document.cookie = "points=100";
+}
+
+function clickHandler(){
+clickClickSecret.innerHTML = "Nice job! You found a secret!";
+addPoints(10);
+}
+
+function freeClick(){
+free.parentNode.removeChild(free);
+addPoints(5);
+}
+
+clickClickSecret.addEventListener('click', clickHandler);
+free.addEventListener('click', freeClick);
+</script>
 </html>
