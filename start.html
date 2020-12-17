@@ -1,78 +1,106 @@
 <!doctype html>
 
 <html lang="en">
-  <head>
-    <title>Find the Treasure</title>
-    <link rel="shortcut icon" type="image/png" href="Images/ftt.png">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+<head>
+  <title>Find the Treasure</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+    
+*{
+font-family:Orbitron;
+text-align:center;
+}
 
-      *{
-      font-family:Orbitron;
-      text-align:center;
-      }
+p,secret{
+font-family:Arial;
+}
 
-      p,secret{
-      font-family:Arial;
-      }
+#pointwrapper{
+position:fixed;
+left:85%;
+border:10px outset red;
+text-align:center;
+padding:0px 10px 0px 10px;
+width:90px;
+}
 
-      #pointwrapper{
-      position:fixed;
-      left:85%;
-      border:10px outset red;
-      text-align:center;
-      padding:0px 10px 0px 10px;
-      width:90px;
-      }
+  </style>
+</head>
 
-      body {
-        background-image: url('Images/background.jpg');
-      }
-    </style>
-  </head>
-
-  <body>
-    <div id="pointwrapper">
-      <p id="points">Points: 0</p>
-    </div>
+<body>
+<div id="pointwrapper">
+<p id="points">Points: 0</p>
+</div>
 
 
-    <h1>Welcome to FTT!</h1>
-    <br>
-    <p>Here's how it works. <br>You try and find easter eggs in the webpage. <br>The harder the easter egg, the more points you get. <br> Use points to buy hints and other things from the shop.</p>
-    <button id="freebie">Here, have a freebie.</button>
-    <p id="clickClickSecret">And thats about it. Feel free to <secret>click</secret> around and try to find more secrets!</p>
-  </body>
-  <script>
-    var points = 0;
-    var pointElement = document.getElementById("points");
-    var free = document.getElementById("freebie");
-    var clickClickSecret = document.getElementById('clickClickSecret');
+<h1>Welcome to FTT!</h1>
+<br>
+<p>Here's how it works. <br>You try and find easter eggs in the webpage. <br>The harder the easter egg, the more points you get. <br> Use points to buy hints and other things from the shop.</p>
+<button id="freebie">Here, have a freebie.</button>
+<p id="clickSecret">And thats about it. Feel free to <secret>click</secret> around and try to find more secrets!</p>
+<p id="clickOutput">
+</body>
+<script>
+//================VAIRABLE INTIALIZATION=========================
+var points = 0;
+var pointElement = document.getElementById("points");
+var free = document.getElementById("freebie");
+var clickClickSecret = document.getElementById('clickSecret');
+var clickOutput = document.getElementById("clickOutput");
+var secretsFound = [];
+var numSecrets = 2;
+var cookie = document.cookie;
+//================FUNCTIONS====================================
+function addPoints(val){
+points += val;
+useCookie();
+}
 
-    if(!isNaN(parseInt(document.cookie.split("=")[1]))){
-    points = parseInt(document.cookie.split("=")[1]);
-    }
+function useCookie(){
+pointElement.innerHTML = "Points: "+points;
 
-    pointElement.innerHTML = "Points: "+points;
+if(secretsFound[0] && free.parentNode!=null){
+   free.parentNode.removeChild(free);
+}
 
-    function addPoints(val){
-    points += val;
-    pointElement.innerHTML = "Points: "+points;
-    document.cookie = "points="+points;
-    }
+if(secretsFound[1]){
+   clickClickSecret.parentNode.removeChild(clickClickSecret);
+   clickOutput.innerHTML = "Nice job! You found a secret!";
+}
 
-    function clickHandler(){
-    clickClickSecret.innerHTML = "Nice job! You found a secret!";
-    addPoints(10);
-    }
+updateCookie();
+}
 
-    function freeClick(){
-    free.parentNode.removeChild(free);
-    addPoints(5);
-    }
+function updateCookie(){
+document.cookie = "points="+points+";secrets="+secretsFound.toString();
+useCookie();
+}
+//================CLICK HANDLERS===============================
+function clickHandler(){
+secretsFound[1] = true;
 
-    clickClickSecret.addEventListener('click', clickHandler);
-    free.addEventListener('click', freeClick);
-    </script>
+addPoints(10);
+}
+
+function freeClick(){
+secretsFound[0] = true;
+addPoints(5);
+}
+//================EVENT LISTNERS===============================
+clickClickSecret.addEventListener('click', clickHandler);
+free.addEventListener('click', freeClick);
+//================COOKIE READING================================
+//Cookie format: points=<point value>;secrets=false,true,true,false
+
+if(cookie!=""){
+   var cookieParts = cookie.split(";");
+   points = parseInt(cookieParts[0].split("=")[1]);
+   var cookieSecrets = cookieParts[1].split("=")[1].split(",");
+   
+   for(var i = 0;i<cookieSecrets.length;i++){
+      secretsFound.push(cookieSecrets[i]=="true");
+   }
+}
+useCookie();
+</script>
 </html>
-
