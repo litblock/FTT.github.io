@@ -3,9 +3,9 @@
 <html lang="en">
 <head>
   <title>Find the Treasure</title>
-  <link rel="shortcut icon" type="image/png" href="Images/ftt.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+    
 *{
 font-family:Orbitron;
 text-align:center;
@@ -31,7 +31,7 @@ width:90px;
 <div id="pointwrapper">
 <p id="points">Points: 0</p>
 </div>
-
+<button style="position:fixed;left:10px;">Reset cookies</button>
 
 <h1>Welcome to FTT!</h1>
 <br>
@@ -47,16 +47,19 @@ var pointElement = document.getElementById("points");
 var free = document.getElementById("freebie");
 var clickClickSecret = document.getElementById('clickSecret');
 var clickOutput = document.getElementById("clickOutput");
+var resetCookies = document.getElementById("resetCookies");
 var secretsFound = [];
 var numSecrets = 2;
 var cookie = document.cookie;
 //================FUNCTIONS====================================
 function addPoints(val){
 points += val;
-useCookie();
+updateCookie();
 }
 
-function useCookie(){
+function updateCookie(){
+document.cookie = "points="+points+";secrets="+secretsFound.toString();
+
 pointElement.innerHTML = "Points: "+points;
 
 if(secretsFound[0] && free.parentNode!=null){
@@ -67,13 +70,6 @@ if(secretsFound[1]){
    clickClickSecret.parentNode.removeChild(clickClickSecret);
    clickOutput.innerHTML = "Nice job! You found a secret!";
 }
-
-updateCookie();
-}
-
-function updateCookie(){
-document.cookie = "points="+points+";secrets="+secretsFound.toString();
-useCookie();
 }
 //================CLICK HANDLERS===============================
 function clickHandler(){
@@ -85,6 +81,14 @@ addPoints(10);
 function freeClick(){
 secretsFound[0] = true;
 addPoints(5);
+}
+
+function resetClick(){
+points = 0;
+for(var i = 0;i<numSecrets;i++){
+  secretsFound[i] = false;
+}
+updateCooke();
 }
 //================EVENT LISTNERS===============================
 clickClickSecret.addEventListener('click', clickHandler);
