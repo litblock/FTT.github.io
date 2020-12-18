@@ -110,13 +110,12 @@ if(cookie!=""){
    for(var i = 0;i<numSecrets;i++){
       secretsFound.push(cookieSecrets[i]=="true");
    }
-   updateCookies();
 }else{
    points = 0;
    for(var i = 0;i<numSecrets;i++){
       secretsFound.push(false);
    }
 }
-useCookie();
+updateCookie();
 </script>
 </html>
