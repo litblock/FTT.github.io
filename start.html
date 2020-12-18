@@ -2,7 +2,8 @@
 
 <html lang="en">
 <head>
-  <title>Find the Treasure</title>
+  <title>FTT</title>
+  <link rel="shortcut icon" type="image/png" href="Images/ftt.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
     
@@ -38,7 +39,8 @@ width:90px;
 <p>Here's how it works. <br>You try and find easter eggs in the webpage. <br>The harder the easter egg, the more points you get. <br> Use points to buy hints and other things from the shop.</p>
 <button id="freebie">Here, have a freebie.</button>
 <p id="clickSecretP">And thats about it. Feel free to <secret id="clickSecret">click</secret> around and try to find more secrets!</p>
-<p id="clickOutput">
+<p id="clickOutput"></p>
+<p id="output"></p>
 </body>
 <script>
 //================VAIRABLE INTIALIZATION=========================
@@ -49,9 +51,11 @@ var clickClickSecret = document.getElementById('clickSecretP');
 var clickElement = document.getElementById('clickSecret')
 var clickOutput = document.getElementById("clickOutput");
 var resetCookies = document.getElementById("resetCookies");
+var output = document.getElementById("output");
 var secretsFound = [];
-var numSecrets = 2;
+var numSecrets = 3;
 var cookie = document.cookie;
+//secret #1 free, secret #2 click, secret #3 redirect
 //================FUNCTIONS====================================
 function addPoints(val){
 points += val;
@@ -59,6 +63,7 @@ updateCookie();
 }
 
 function updateCookie(){
+output.innerHTML = "points="+points+";secrets="+secretsFound.toString();
 document.cookie = "points="+points+";secrets="+secretsFound.toString();
 
 pointElement.innerHTML = "Points: "+points;
@@ -102,12 +107,13 @@ if(cookie!=""){
    points = parseInt(cookieParts[0].split("=")[1]);
    var cookieSecrets = cookieParts[1].split("=")[1].split(",");
    
-   for(var i = 0;i<cookieSecrets.length;i++){
+   for(var i = 0;i<numSecrets;i++){
       secretsFound.push(cookieSecrets[i]=="true");
    }
+   updateCookies();
 }else{
    points = 0;
-   for(var i = 0;i<cookieSecrets.length;i++){
+   for(var i = 0;i<numSecrets;i++){
       secretsFound.push(false);
    }
 }
