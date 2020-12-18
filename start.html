@@ -31,13 +31,13 @@ width:90px;
 <div id="pointwrapper">
 <p id="points">Points: 0</p>
 </div>
-<button style="position:fixed;left:10px;">Reset cookies</button>
+<button id="resetCookies" style="position:fixed;left:10px;">Reset cookies</button>
 
 <h1>Welcome to FTT!</h1>
 <br>
 <p>Here's how it works. <br>You try and find easter eggs in the webpage. <br>The harder the easter egg, the more points you get. <br> Use points to buy hints and other things from the shop.</p>
 <button id="freebie">Here, have a freebie.</button>
-<p id="clickSecret">And thats about it. Feel free to <secret>click</secret> around and try to find more secrets!</p>
+<p id="clickSecretP">And thats about it. Feel free to <secret id="clickSecret">click</secret> around and try to find more secrets!</p>
 <p id="clickOutput">
 </body>
 <script>
@@ -45,7 +45,8 @@ width:90px;
 var points = 0;
 var pointElement = document.getElementById("points");
 var free = document.getElementById("freebie");
-var clickClickSecret = document.getElementById('clickSecret');
+var clickClickSecret = document.getElementById('clickSecretP');
+var clickElement = document.getElementById('clickSecret')
 var clickOutput = document.getElementById("clickOutput");
 var resetCookies = document.getElementById("resetCookies");
 var secretsFound = [];
@@ -84,15 +85,15 @@ addPoints(5);
 }
 
 function resetClick(){
-points = 0;
 for(var i = 0;i<numSecrets;i++){
   secretsFound[i] = false;
 }
-updateCooke();
+addPoints(-1*points);
 }
 //================EVENT LISTNERS===============================
-clickClickSecret.addEventListener('click', clickHandler);
+clickElement.addEventListener('click', clickHandler);
 free.addEventListener('click', freeClick);
+resetCookies.addEventListener('click',resetClick);
 //================COOKIE READING================================
 //Cookie format: points=<point value>;secrets=false,true,true,false
 
@@ -103,6 +104,11 @@ if(cookie!=""){
    
    for(var i = 0;i<cookieSecrets.length;i++){
       secretsFound.push(cookieSecrets[i]=="true");
+   }
+}else{
+   points = 0;
+   for(var i = 0;i<cookieSecrets.length;i++){
+      secretsFound.push(false);
    }
 }
 useCookie();
