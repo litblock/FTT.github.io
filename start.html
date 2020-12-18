@@ -106,7 +106,7 @@ resetCookies.addEventListener('click',resetClick);
 output.innerHTML += cookie;
 if(cookie!=""){
    var cookieParts = cookie.split(";");
-   points += parseInt(cookieParts[0].split("=")[1]);
+   points = parseInt(cookieParts[0].split("=")[1]);
    var cookieSecrets = cookieParts[1].split("=")[1].split(",");
 
    for(var i = 0;i<numSecrets;i++){
