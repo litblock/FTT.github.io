@@ -63,7 +63,7 @@ updateCookie();
 }
 
 function updateCookie(){
-output.innerHTML = "points="+points+";secrets="+secretsFound.toString();
+output.innerHTML += "<br>points="+points+";secrets="+secretsFound.toString();
 document.cookie = "points="+points+";secrets="+secretsFound.toString();
 
 pointElement.innerHTML = "Points: "+points;
@@ -105,8 +105,9 @@ resetCookies.addEventListener('click',resetClick);
 if(cookie!=""){
    var cookieParts = cookie.split(";");
    points = parseInt(cookieParts[0].split("=")[1]);
+   output.innerHTML = cookieParts[1].split("=")[1];
    var cookieSecrets = cookieParts[1].split("=")[1].split(",");
-   
+
    for(var i = 0;i<numSecrets;i++){
       secretsFound.push(cookieSecrets[i]=="true");
    }
