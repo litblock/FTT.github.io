@@ -1,27 +1,33 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Redirect</title>
+    <title>FTT</title>
     <link rel="shortcut icon" type="image/png" href="Images/ftt.png">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-      body {
+      *{
         font-family: Orbitron
       }
 
     </style>
   </head>
   <body>
-    <h1 align="center">You found something. What is it.</h1>
     <center>
-      <div id="hidden">
-        <form action="/action_page.php">
+      <h1>You found something. What is it.</h1>
           <label for="fname">Code: </label>
           <input type="text" id="code" name="code"><br><br>
-          <input type="submit" value="Submit">
-        </form>
-      </div>
+          <input type="button" value="Submit" onclick="checkIfCorrect()"><span id="enter">
+      <br>
+      <a href=start.html><button id="hiddenButton" hidden>You Found it.</button></a>
     </center>
+    <script>
+      function checkIfCorrect(){
+        var code = document.getElementById("code");
+        if((code.value == "ftt{19c1487c29e7e9875ff58160944eb253}")){
+          hiddenButton.removeAttribute("hidden");
+        }
+      }
+    </script>
    </body>
 </html>
