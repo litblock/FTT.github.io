@@ -54,7 +54,7 @@ var resetCookies = document.getElementById("resetCookies");
 var output = document.getElementById("output");
 var secretsFound = [];
 var numSecrets = 3;
-var cookie = document.cookie;
+var cookie = "points=0;secrets=false,false,false"//document.cookie;
 //secret #1 free, secret #2 click, secret #3 redirect
 //info=100:
 //================FUNCTIONS====================================
@@ -95,7 +95,7 @@ function resetClick(){
 for(var i = 0;i<numSecrets;i++){
   secretsFound[i] = false;
 }
-addPoints(-1*points);
+points = 0;
 }
 //================EVENT LISTNERS===============================
 clickElement.addEventListener('click', clickHandler);
