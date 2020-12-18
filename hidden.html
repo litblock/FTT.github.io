@@ -19,7 +19,18 @@
           <input type="text" id="code" name="code"><br><br>
           <input type="button" value="Submit" onclick="checkIfCorrect()"><span id="enter">
       <br>
-      <a href=start.html><button id="hiddenButton" hidden>You Found it.</button></a>
+      <br>
+      <button id="hiddenButton" hidden>You Found it.</button>
+      <br>
+      <br>
+      <button id="redirect" onclick="goBack()">Go back to last page.</button>
+      <div id="options">
+        <p id="question"hidden>Are you sure?</p>
+        <div id="buttons">
+          <button id="no" onclick="hide()" hidden>No</button>
+          <a href="start.html"><button id="yes" hidden>Yes</button></a>
+        </div>
+      </div>
     </center>
     <script>
       function checkIfCorrect(){
@@ -27,6 +38,18 @@
         if((code.value == "ftt{19c1487c29e7e9875ff58160944eb253}")){
           hiddenButton.removeAttribute("hidden");
         }
+      }
+
+      function goBack(){
+        document.getElementById("question").hidden = false;
+        document.getElementById("no").hidden = false;
+        document.getElementById("yes").hidden = false;
+      }
+
+      function hide(){
+        document.getElementById("question").hidden = true;
+        document.getElementById("no").hidden = true;
+        document.getElementById("yes").hidden = true;
       }
     </script>
    </body>
