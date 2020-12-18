@@ -101,11 +101,10 @@ free.addEventListener('click', freeClick);
 resetCookies.addEventListener('click',resetClick);
 //================COOKIE READING================================
 //Cookie format: points=<point value>;secrets=false,true,true,false
-
+output.innerHTML += cookie;
 if(cookie!=""){
    var cookieParts = cookie.split(";");
-   points = parseInt(cookieParts[0].split("=")[1]);
-   output.innerHTML = cookieParts[1].split("=")[1];
+   points += parseInt(cookieParts[0].split("=")[1]);
    var cookieSecrets = cookieParts[1].split("=")[1].split(",");
 
    for(var i = 0;i<numSecrets;i++){
