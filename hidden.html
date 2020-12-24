@@ -10,31 +10,78 @@
         font-family: Orbitron
       }
 
+      .orderPuzzle{
+        background-color: white;
+        color: white;
+      }
+
+      #reset{
+        background-color: white;
+      }
     </style>
   </head>
   <body>
     <center>
       <h1>You found something. What is it.</h1>
-          <label for="fname">Code: </label>
-          <input type="text" id="code" name="code"><br><br>
-          <input type="button" value="Submit" onclick="checkIfCorrect()"><span id="enter">
+      <label for="fname">Code: </label>
+      <input type="text" id="code" name="code"><br><br>
+      <input type="button" value="Submit" onclick="checkIfCorrect()"><span id="enter">
       <br>
       <br>
-      <button id="hiddenButton" hidden>You Found it.</button>
+      <br>
+      <br>
+      <br>
+      <button id="hiddenButton" onclick="showOrderPuzzle()" hidden>You got the right code!</button>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div id="orderPuzzle" class="orderPuzzle" hidden>
+        <button id="6" class="orderPuzzle">6</button>
+        <button id="9" class="orderPuzzle">9</button>
+        <button id="3" class="orderPuzzle">3</button>
+        <button id="5" class="orderPuzzle">5</button>
+        <button id="10" class="orderPuzzle">10</button>
+        <button id="1" class="orderPuzzle">1</button>
+        <button id="4" class="orderPuzzle">4</button>
+        <button id="7" class="orderPuzzle">7</button>
+        <button id="2" class="orderPuzzle">2</button>
+        <button id="11" class="orderPuzzle">11</button>
+        <button id="8" class="orderPuzzle">8</button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <button id="reset" hidden>Reset</button>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
       <br>
       <br>
       <button id="redirect" onclick="goBack()">Go back to last page.</button>
-      <div id="options">
+      <div>
         <p id="question"hidden>Are you sure?</p>
-        <div id="buttons">
+        <div>
           <button id="no" onclick="hide()" hidden>No</button>
           <a href="start.html"><button id="yes" hidden>Yes</button></a>
         </div>
       </div>
     </center>
     <script>
+      var clickedButtons = [false, false, false, false, false, false, false, false, false];
+      var clickedInOrder = false;
+
       function checkIfCorrect(){
         var code = document.getElementById("code");
+
         if((code.value == "ftt{19c1487c29e7e9875ff58160944eb253}")){
           hiddenButton.removeAttribute("hidden");
         }
@@ -50,6 +97,11 @@
         document.getElementById("question").hidden = true;
         document.getElementById("no").hidden = true;
         document.getElementById("yes").hidden = true;
+      }
+
+      function showOrderPuzzle(){
+        document.getElementById("reset").hidden = false;
+        document.getElementById("orderPuzzle").hidden = false;
       }
     </script>
    </body>
