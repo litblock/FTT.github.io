@@ -22,7 +22,7 @@
   </head>
   <body>
     <center>
-      <h1>You found something. What is it.</h1>
+      <h1 ondblclick="popup()">You found something. What is it.</h1>
       <label for="fname">Code: </label>
       <input type="text" id="code" name="code"><br><br>
       <input type="button" value="Submit" onclick="checkIfCorrect()"><span id="enter">
@@ -38,24 +38,23 @@
       <br>
       <br>
       <div id="orderPuzzle" class="orderPuzzle" hidden>
-        <button id="6" class="orderPuzzle">6</button>
-        <button id="9" class="orderPuzzle">9</button>
-        <button id="3" class="orderPuzzle">3</button>
-        <button id="5" class="orderPuzzle">5</button>
-        <button id="10" class="orderPuzzle">10</button>
-        <button id="1" class="orderPuzzle">1</button>
-        <button id="4" class="orderPuzzle">4</button>
-        <button id="7" class="orderPuzzle">7</button>
-        <button id="2" class="orderPuzzle">2</button>
-        <button id="11" class="orderPuzzle">11</button>
-        <button id="8" class="orderPuzzle">8</button>
+        <button id="6" onclick="inOrder(6)" class="orderPuzzle">6</button>
+        <button id="9" onclick="inOrder(9)" class="orderPuzzle">9</button>
+        <button id="3" onclick="inOrder(3)" class="orderPuzzle">3</button>
+        <button id="5" onclick="inOrder(5)" class="orderPuzzle">5</button>
+        <button id="10" onclick="inOrder(10)" class="orderPuzzle">10</button>
+        <button id="1" onclick="inOrder(1)" class="orderPuzzle">1</button>
+        <button id="4" onclick="inOrder(4)" class="orderPuzzle">4</button>
+        <button id="7" onclick="inOrder(7)" class="orderPuzzle">7</button>
+        <button id="2" onclick="inOrder(2)" class="orderPuzzle">2</button>
+        <button id="11" onclick="inOrder(11)" class="orderPuzzle">11</button>
+        <button id="8" onclick="inOrder(8)" class="orderPuzzle">8</button>
       </div>
+      <h3 id="done" hidden>YOU DID IT!</h3>
+      <h5 id="failed" hidden>You clicked the wrong one, Try again.</h5>
       <br>
       <br>
-      <br>
-      <br>
-      <button id="reset" hidden>Reset</button>
-      <br>
+      <button id="reset" onclick="reset()" hidden>Reset</button>
       <br>
       <br>
       <br>
@@ -67,7 +66,7 @@
       <br>
       <br>
       <button id="redirect" onclick="goBack()">Go back to last page.</button>
-      <div>
+      <div id="buttons">
         <p id="question"hidden>Are you sure?</p>
         <div>
           <button id="no" onclick="hide()" hidden>No</button>
@@ -76,8 +75,7 @@
       </div>
     </center>
     <script>
-      var clickedButtons = [false, false, false, false, false, false, false, false, false];
-      var clickedInOrder = false;
+      var counter = 1;
 
       function checkIfCorrect(){
         var code = document.getElementById("code");
@@ -102,6 +100,30 @@
       function showOrderPuzzle(){
         document.getElementById("reset").hidden = false;
         document.getElementById("orderPuzzle").hidden = false;
+      }
+
+      function inOrder(id){
+
+        if(id == counter && id == 11){
+          document.getElementById("done").hidden = false;
+          document.getElementById("reset").hidden = true;
+          document.getElementById("orderPuzzle").hidden = true;
+        }
+        else if(id == counter){
+          counter++;
+        }
+        else{
+          document.getElementById("failed").hidden = false;
+        }
+      }
+
+      function reset(){
+        counter = 1;
+        document.getElementById("failed").hidden = true;
+      }
+
+      function popup(){
+        window.alert("What is this?");
       }
     </script>
    </body>
